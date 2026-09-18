@@ -9,7 +9,7 @@ export const accessRequestsTool: ToolConfig = {
   fields: [
     { key: "requester", label: "Requester", type: "text", showInList: true, required: true },
     { key: "system", label: "System", type: "select", options: ["github", "aws", "salesforce", "vpn_prod"], showInList: true, required: true },
-    { key: "accessLevel", label: "Access level", type: "select", options: ["read", "write", "admin"], showInList: true, required: true },
+    { key: "accessLevel", label: "Access level", type: "select", options: ["read", "write", "admin"], showInList: true },
     { key: "justification", label: "Justification", type: "textarea" },
     { key: "status", label: "Status", type: "select", options: ["pending", "approved", "denied"], showInList: true },
     { key: "requestedAt", label: "Requested", type: "date", showInList: true },
