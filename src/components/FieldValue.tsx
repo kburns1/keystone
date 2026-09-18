@@ -1,3 +1,4 @@
+import { formatCurrencyCents } from "@/lib/format";
 import type { FieldDef } from "@/lib/types";
 import { Badge } from "./Badge";
 
@@ -21,11 +22,7 @@ export function FieldValue({
       return <Badge value={value ? "enabled" : "disabled"} />;
     case "currency":
       return (
-        <span className="tabular-nums">
-          {new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(
-            Number(value) / 100,
-          )}
-        </span>
+        <span className="tabular-nums">{formatCurrencyCents(Number(value))}</span>
       );
     case "number":
       return <span className="tabular-nums">{String(value)}</span>;

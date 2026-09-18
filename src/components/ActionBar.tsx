@@ -1,5 +1,6 @@
 import { performAction } from "@/lib/actions";
 import type { SessionUser } from "@/lib/auth";
+import { humanize } from "@/lib/format";
 import type { ToolConfig } from "@/lib/types";
 
 export function ActionBar({
@@ -16,7 +17,7 @@ export function ActionBar({
   if (visible.length === 0) {
     return (
       <p className="text-sm text-neutral-500">
-        Your role ({user.role}) has no actions on this record.
+        Your role ({humanize(user.role)}) has no actions on this record.
       </p>
     );
   }

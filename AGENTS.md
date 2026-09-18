@@ -19,6 +19,7 @@ That's it — list view, filters, detail page, create form, actions, RBAC, and a
 - **Role checks are server-side only.** Never trust a role passed from the client.
 - **Fields are the contract.** `filters[].key` and `statusField` must reference real `fields[].key`s. `titleField` must exist.
 - **Currency is integer cents** everywhere (seed, forms, display).
+- **Stored values are machine-readable, the UI is not.** `select` option keys (`duplicate_charge`), field keys, action keys and role names render through the helpers in `src/lib/format.ts` (`humanize`, `formatCurrencyCents`, `booleanLabel`) — never raw.
 - Keep tool configs declarative — no functions/components inside `ToolConfig`.
 
 ## Field types available

@@ -1,10 +1,13 @@
 import Link from "next/link";
+import { booleanLabel, humanize } from "@/lib/format";
 import type { ToolConfig } from "@/lib/types";
 
-function optionsFor(tool: ToolConfig, key: string): string[] {
+function optionsFor(tool: ToolConfig, key: string): { value: string; label: string }[] {
   const field = tool.fields.find((f) => f.key === key);
-  if (field?.type === "boolean") return ["true", "false"];
-  return field?.options ?? [];
+  if (field?.type === "boolean") {
+    return [true, false].map((v) => ({ value: String(v), label: booleanLabel(v) }));
+  }
+  return (field?.options ?? []).map((o) => ({ value: o, label: humanize(o) }));
 }
 
 export function FilterBar({
@@ -41,15 +44,15 @@ export function FilterBar({
           </Link>
           {optionsFor(tool, filter.key).map((opt) => (
             <Link
-              key={opt}
-              href={href(filter.key, opt)}
+              key={opt.value}
+              href={href(filter.key, opt.value)}
               className={
-                active[filter.key] === opt
+                active[filter.key] === opt.value
                   ? "rounded bg-neutral-800 px-2 py-0.5 text-white"
                   : "rounded px-2 py-0.5 text-neutral-600 hover:bg-neutral-200"
               }
             >
-              {opt}
+              {opt.label}
             </Link>
           ))}
         </div>

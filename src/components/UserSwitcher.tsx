@@ -1,5 +1,6 @@
 import { setUser } from "@/lib/actions";
 import { USERS, type SessionUser } from "@/lib/auth";
+import { humanize } from "@/lib/format";
 
 export function UserSwitcher({ current }: { current: SessionUser }) {
   return (
@@ -9,14 +10,14 @@ export function UserSwitcher({ current }: { current: SessionUser }) {
           <input type="hidden" name="user" value={u.id} />
           <button
             type="submit"
-            title={`Sign in as ${u.name} (${u.role})`}
+            title={`Sign in as ${u.name} (${humanize(u.role)})`}
             className={
               u.id === current.id
                 ? "rounded bg-white px-2 py-1 font-semibold text-neutral-900"
                 : "rounded px-2 py-1 text-neutral-300 hover:bg-neutral-700"
             }
           >
-            {u.role}
+            {humanize(u.role)}
           </button>
         </form>
       ))}
