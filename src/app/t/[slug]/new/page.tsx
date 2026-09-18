@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createRecord } from "@/lib/actions";
 import { canCreate, currentUser } from "@/lib/auth";
+import { humanize } from "@/lib/format";
 import { getTool } from "@/tools";
 
 export default async function NewRecordPage({
@@ -25,7 +26,7 @@ export default async function NewRecordPage({
         </Link>
         <h1 className="mt-3 text-xl font-semibold">New record — {tool.name}</h1>
         <p className="mt-6 rounded-lg border border-neutral-200 bg-white p-5 text-sm text-neutral-500">
-          Your role ({user.role}) cannot create records in {tool.name}.
+          Your role ({humanize(user.role)}) cannot create records in {tool.name}.
         </p>
       </div>
     );
@@ -51,7 +52,7 @@ export default async function NewRecordPage({
               <select name={f.key} className="mt-1 w-full rounded border border-neutral-300 px-2 py-1.5 text-sm">
                 <option value="">—</option>
                 {f.options?.map((o) => (
-                  <option key={o} value={o}>{o}</option>
+                  <option key={o} value={o}>{humanize(o)}</option>
                 ))}
               </select>
             ) : f.type === "boolean" ? (
