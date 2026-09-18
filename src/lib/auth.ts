@@ -17,7 +17,7 @@ export const USERS: SessionUser[] = [
   { id: "u-view", name: "Vic Viewer", role: "viewer" },
 ];
 
-export const CREATE_ROLES: Role[] = ["admin", "reviewer"];
+export const CREATE_ROLES: Role[] = ["admin"];
 
 export function canCreate(role: Role): boolean {
   return CREATE_ROLES.includes(role);
