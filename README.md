@@ -4,7 +4,7 @@ A prototype answer to: *"can we stop paying for an internal-tools platform and j
 
 Keystone is a shared runtime where **each internal tool is a single typed config file**. Queue views, detail pages, filters, role-checked actions, and a full audit trail come from the platform — a new tool is one `ToolConfig` plus one line in the registry.
 
-Seeded with three tools: **KYC review queue**, **refunds dashboard**, **feature-flag admin**.
+Ships five tools: the client's three (**KYC review queue**, **refunds dashboard**, **feature-flag admin**) plus **access requests** and **AML alerts** — the latter two authored end-to-end by Devin Cloud sessions and merged as PRs ([#4](../../pull/4), [#5](../../pull/5)). Each landed as one config file + one registry line + seed rows.
 
 ## Run it
 
