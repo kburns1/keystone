@@ -71,10 +71,19 @@ export function seed(db: BetterSQLite3Database) {
     { key: "multi_currency_wallets", description: "Hold balances in EUR/GBP in addition to USD.", enabled: false, owner: "core", rolloutPct: 0 },
   ];
 
+  const amlAlerts = [
+    { customer: "cst_c41a0e", alertType: "structuring", amount: 985000, riskLevel: "high", status: "open", openedAt: "2026-09-16", analystNotes: "Eleven cash deposits just under $10k across three branches in 48 hours." },
+    { customer: "cst_7e2b93", alertType: "high_velocity", amount: 2340000, riskLevel: "medium", status: "open", openedAt: "2026-09-15", analystNotes: "" },
+    { customer: "cst_19fd6a", alertType: "sanctioned_jurisdiction", amount: 415000, riskLevel: "high", status: "escalated", openedAt: "2026-09-13", analystNotes: "Counterparty bank domiciled in a comprehensively sanctioned country." },
+    { customer: "cst_a05c72", alertType: "unusual_pattern", amount: 62000, riskLevel: "low", status: "dismissed", openedAt: "2026-09-11", analystNotes: "Seasonal payroll spike; matches prior-year activity." },
+    { customer: "cst_d8e314", alertType: "structuring", amount: 1875000, riskLevel: "high", status: "sar_filed", openedAt: "2026-09-08", analystNotes: "SAR filed after confirming layered transfers through two shell entities." },
+  ];
+
   const rows = [
     ...kyc.map((d, i) => rec("kyc", d, i + 1)),
     ...refunds.map((d, i) => rec("refunds", d, i + 1)),
     ...flags.map((d, i) => rec("feature-flags", d, i + 1)),
+    ...amlAlerts.map((d, i) => rec("aml-alerts", d, i + 1)),
   ];
 
   for (const { record, event } of rows) {
