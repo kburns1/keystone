@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FilterBar } from "@/components/FilterBar";
 import { RecordTable } from "@/components/RecordTable";
+import { canCreate, currentUser } from "@/lib/auth";
 import { listRecords } from "@/lib/data";
 import { getTool } from "@/tools";
 
@@ -16,6 +17,8 @@ export default async function ToolPage({
   const sp = await searchParams;
   const tool = getTool(slug);
   if (!tool) notFound();
+
+  const user = await currentUser();
 
   const active: Record<string, string> = {};
   for (const f of tool.filters) {
@@ -38,12 +41,14 @@ export default async function ToolPage({
           <h1 className="text-xl font-semibold">{tool.name}</h1>
           <p className="mt-1 text-sm text-neutral-500">{tool.description}</p>
         </div>
-        <Link
-          href={`/t/${tool.slug}/new`}
-          className="rounded bg-neutral-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-neutral-700"
-        >
-          + New record
-        </Link>
+        {canCreate(user.role) && (
+          <Link
+            href={`/t/${tool.slug}/new`}
+            className="rounded bg-neutral-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-neutral-700"
+          >
+            + New record
+          </Link>
+        )}
       </div>
       <div className="mt-4">
         <FilterBar tool={tool} active={active} />

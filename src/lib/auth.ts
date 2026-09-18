@@ -17,6 +17,12 @@ export const USERS: SessionUser[] = [
   { id: "u-view", name: "Vic Viewer", role: "viewer" },
 ];
 
+export const CREATE_ROLES: Role[] = ["admin", "reviewer"];
+
+export function canCreate(role: Role): boolean {
+  return CREATE_ROLES.includes(role);
+}
+
 const COOKIE = "keystone_user";
 
 export async function currentUser(): Promise<SessionUser> {
