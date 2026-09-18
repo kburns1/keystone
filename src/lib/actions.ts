@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { db } from "@/db";
 import { auditEvents, records } from "@/db/schema";
 import { getTool } from "@/tools";
-import { currentUser } from "./auth";
+import { canCreate, currentUser } from "./auth";
 
 export async function setUser(formData: FormData) {
   const id = String(formData.get("user") ?? "");
@@ -20,7 +20,7 @@ export async function createRecord(toolSlug: string, formData: FormData) {
   if (!tool) throw new Error(`Unknown tool: ${toolSlug}`);
 
   const user = await currentUser();
-  if (user.role === "viewer") throw new Error("Viewers cannot create records");
+  if (!canCreate(user.role)) throw new Error(`${user.role}s cannot create records`);
 
   const data: Record<string, unknown> = {};
   for (const f of tool.fields) {
