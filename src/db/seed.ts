@@ -71,6 +71,13 @@ export function seed(db: BetterSQLite3Database) {
     { key: "multi_currency_wallets", description: "Hold balances in EUR/GBP in addition to USD.", enabled: false, owner: "core", rolloutPct: 0 },
   ];
 
+  const accessRequests = [
+    { requester: "Dana Whitlock", system: "github", accessLevel: "write", justification: "Joining the payments service team; needs to open PRs on the core repos.", status: "pending", requestedAt: "2026-09-16" },
+    { requester: "Marcus Bell", system: "aws", accessLevel: "admin", justification: "On-call rotation for the platform team starting next sprint.", status: "pending", requestedAt: "2026-09-15" },
+    { requester: "Sofia Marchetti", system: "salesforce", accessLevel: "read", justification: "Needs pipeline reporting for the quarterly revenue review.", status: "approved", requestedAt: "2026-09-13" },
+    { requester: "Owen Park", system: "vpn_prod", accessLevel: "admin", justification: "Debugging a production incident from a personal laptop.", status: "denied", requestedAt: "2026-09-11" },
+  ];
+
   const amlAlerts = [
     { customer: "cst_c41a0e", alertType: "structuring", amount: 985000, riskLevel: "high", status: "open", openedAt: "2026-09-16", analystNotes: "Eleven cash deposits just under $10k across three branches in 48 hours." },
     { customer: "cst_7e2b93", alertType: "high_velocity", amount: 2340000, riskLevel: "medium", status: "open", openedAt: "2026-09-15", analystNotes: "" },
@@ -83,6 +90,7 @@ export function seed(db: BetterSQLite3Database) {
     ...kyc.map((d, i) => rec("kyc", d, i + 1)),
     ...refunds.map((d, i) => rec("refunds", d, i + 1)),
     ...flags.map((d, i) => rec("feature-flags", d, i + 1)),
+    ...accessRequests.map((d, i) => rec("access-requests", d, i + 1)),
     ...amlAlerts.map((d, i) => rec("aml-alerts", d, i + 1)),
   ];
 
